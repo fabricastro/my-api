@@ -7,12 +7,26 @@ app.get('/', (req, res)=>{
     res.send('hola desde ruta raiz')
 })
 
-app.get('/help', (req, res)=>{
+app.get('/api/v1/help', (req, res)=>{
     res.status(200).send('Hola desde Help')
 })
 
+app.get('/users', (req, res)=>{
+    const {limit, offset} = req.query
+    if(limit && offset){
+        res.json({
+            limit,
+            offset
+        })
+    } else {
+        res.send('No hay ningúnn parametro')
+    }
+})
+
 app.get('/products/:id', (req, res)=>{
+    const {id} = req.params
     res.json({
+        'id' : id,
         'name' : 'Teclado',
         'price' : 2000,
         'category' : 'tecnologia'

@@ -2,7 +2,8 @@ const faker = require('faker');
 
 
 const getAllProducts = (req, res) => {
-    const products = []
+    try {
+        const products = []
     const {size} = req.query
     const limit = size || 5
     for (let index = 0; index < limit; index++) {
@@ -13,6 +14,9 @@ const getAllProducts = (req, res) => {
         })
     }
     return products
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 const createNewProduct = (req, res) => {
@@ -23,8 +27,43 @@ const createNewProduct = (req, res) => {
     })
 }
 
+const updateProduct = (req, res) => {
+    try {
+        const {id} = req.params
+        const body = req.body
+        res.json({
+        message: 'success',
+        product: body,
+        id,
+    })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const deleteProduct = (res, req)=>{
+    const {id} = req.params
+    res.json({
+        message: "delete",
+        id,
+    })
+}
+
+const getOneProduct = (req, res) => {
+    const {id} = req.params
+    res.json({
+        'id' : id,
+        'name' : 'Teclado',
+        'price' : 2000,
+        'category' : 'tecnologia'
+    })
+}
+    
 module.exports = 
 {
     getAllProducts,
-    createNewProduct
+    createNewProduct,
+    updateProduct,
+    deleteProduct,
+    getOneProduct
 }

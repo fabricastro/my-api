@@ -2,41 +2,30 @@ const express = require('express');
 const productServices = require('../services/servicesProducts')
 const router = express.Router()
 
-router.get('/', (req, res)=>{
-    const products = productServices.getAllProducts(req, res)
+router.get('/', async (req, res)=>{
+    const products = await productServices.getAllProducts(req, res)
     res.json(products)
 
 })
 
-router.get('/:id', (req, res)=>{
-    const {id} = req.params
-    res.json({
-        'id' : id,
-        'name' : 'Teclado',
-        'price' : 2000,
-        'category' : 'tecnologia'
-    })
+router.get('/:id', async (req, res)=>{
+    const getOneProduct = await productServices.getOneProduct(req, res)
+    return getOneProduct
 })
 
-router.post('/', (req, res)=>{
-    productServices.createNewProduct(req, res)
+router.post('/', async (req, res)=>{
+    const createProduct = await productServices.createNewProduct(req, res)
+    return createProduct
 })
 
-router.patch('/:id', (req, res)=>{
-    const {id} = req.params
-    const body = req.body
-    res.json({
-        message: 'success',
-        product: body,
-        id,
-    })
+router.patch('/:id', async (req, res)=>{
+    const updateProduct = await productServices.updateProduct(req, res)
+    res.json(updateProduct)
 })
 
-router.delete('/:id', (req, res)=>{
-    const {id} = req.params
-    res.json({
-        message: "delete",
-        id,
-    })
+router.delete('/:id', async (req, res)=>{
+   const updateProduct = await productServices.updateProduct(req, res)
+   return updateProduct
 })
+
 module.exports = router

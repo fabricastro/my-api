@@ -5,7 +5,7 @@ const router = express.Router()
 router.get('/', async (req, res)=>{
     const products = await productServices.getAllProducts(req, res)
     res.json(products)
-
+    
 })
 
 router.get('/:id', async (req, res)=>{

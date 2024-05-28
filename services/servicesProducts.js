@@ -20,11 +20,16 @@ const getAllProducts = (req, res) => {
 }
 
 const createNewProduct = (req, res) => {
-    const body = req.body
-    res.json({
-        ok: true,
-        data: body
-    })
+    try{
+
+        const body = req.body
+        res.json({
+            ok: true,
+            data: body
+        })
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 const updateProduct = (req, res) => {
@@ -42,21 +47,29 @@ const updateProduct = (req, res) => {
 }
 
 const deleteProduct = (res, req)=>{
-    const {id} = req.params
-    res.json({
-        message: "delete",
-        id,
-    })
+    try {
+        const {id} = req.params
+        res.json({
+            message: "delete",
+            id,
+        })
+    } catch(error){
+        console.log(error);
+    }
 }
 
 const getOneProduct = (req, res) => {
-    const {id} = req.params
-    res.json({
-        'id' : id,
-        'name' : 'Teclado',
-        'price' : 2000,
-        'category' : 'tecnologia'
-    })
+    try{
+        const {id} = req.params
+        res.json({
+            'id' : id,
+            'name' : 'Teclado',
+            'price' : 2000,
+            'category' : 'tecnologia'
+        })
+    } catch(error) {
+        console.log(error);
+    }
 }
     
 module.exports = 

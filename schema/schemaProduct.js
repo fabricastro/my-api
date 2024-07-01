@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+const id = Joi.string().uuid()
 const name = Joi.string().alphanum().min(3).max(10)
 const price = Joi.number().integer().min(10)
 
@@ -8,4 +9,17 @@ const schemaProductCreate = Joi.object({
     price: price.required()
 })
 
-const updateSchemaProduct = Joi.object()
+const updateSchemaProduct = Joi.object({
+    name: name,
+    price: price
+})
+
+const getProductsSchema = Joi.object({
+    id: id.required()
+})
+
+module.exports = {
+    schemaProductCreate,
+    updateSchemaProduct,
+    getProductsSchema
+}

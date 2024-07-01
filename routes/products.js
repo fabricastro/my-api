@@ -1,7 +1,8 @@
 const express = require('express');
 const productServices = require('../services/servicesProducts')
 const router = express.Router()
-
+const validatorHandler = require('../middleware/validator.handler')
+const { schemaProductCreate, updateSchemaProduct, getProductsSchema } = require('../schema/schemaProduct')
 router.get('/', async (req, res, next) => {
     try {
         const products = await productServices.getAllProducts(req, res)
@@ -12,7 +13,8 @@ router.get('/', async (req, res, next) => {
 
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', validatorHandler(getProductsSchema, 'params'),
+    async (req, res) => {
     const getOneProduct = await productServices.getOneProduct(req, res)
     return getOneProduct
 })
